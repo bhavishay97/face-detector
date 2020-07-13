@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react';
 import ParticlesBackground from './components/ParticlesBackground';
 import Navbar from './components/Navbar';
+import Logo from './components/Logo';
 import './App.css';
 
 function App() {
@@ -8,6 +9,7 @@ function App() {
     <Fragment>
       <ParticlesBackground />
       <Navbar />
+      <Logo />
     </Fragment>
   );
 }
