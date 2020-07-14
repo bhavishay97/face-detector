@@ -2,6 +2,7 @@ import React, { Fragment } from 'react';
 import ParticlesBackground from './components/ParticlesBackground';
 import Navbar from './components/Navbar';
 import Logo from './components/Logo';
+import ImageLinkForm from './components/ImageLinkForm';
 import './App.css';
 
 function App() {
@@ -10,6 +11,7 @@ function App() {
       <ParticlesBackground />
       <Navbar />
       <Logo />
+      <ImageLinkForm />
     </Fragment>
   );
 }
