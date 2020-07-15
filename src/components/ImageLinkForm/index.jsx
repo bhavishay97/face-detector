@@ -1,7 +1,7 @@
 import React from 'react';
 import './style.css';
 
-function ImageLinkForm() {
+function ImageLinkForm({ onInputChange, onDetectSubmit }) {
   return (
     <div className='container'>
       <div className='row mt-5'>
@@ -12,8 +12,14 @@ function ImageLinkForm() {
                 type='text'
                 className='form-control form-control-lg'
                 placeholder='Enter image URL'
+                onChange={onInputChange}
               />
-              <button className='btn btn-primary btn-lg'>Detect</button>
+              <button
+                className='btn btn-primary btn-lg'
+                onClick={onDetectSubmit}
+              >
+                Detect
+              </button>
             </div>
           </form>
         </div>
