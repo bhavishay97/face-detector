@@ -14,26 +14,26 @@ const app = new Clarifai.App({
 function App() {
   const [input, setInput] = useState('');
   const [imageUrl, setImageUrl] = useState('');
-  const [box, setBox] = useState({});
+  const [boxes, setBoxes] = useState([]);
 
   const calculateFaceLocation = (data) => {
-    const clarifaiFace =
-      data['outputs'][0]['data']['regions'][0].region_info.bounding_box;
-
     const image = document.querySelector('#input-image');
     const width = Number(image.width);
     const height = Number(image.height);
 
-    return {
-      leftCol: clarifaiFace.left_col * width,
-      topRow: clarifaiFace.top_row * height,
-      rightCol: width - clarifaiFace.right_col * width,
-      bottomRow: height - clarifaiFace.bottom_row * height,
-    };
+    return data['outputs'][0]['data']['regions'].map((face) => {
+      const clarifaiFace = face.region_info.bounding_box;
+      return {
+        leftCol: clarifaiFace.left_col * width,
+        topRow: clarifaiFace.top_row * height,
+        rightCol: width - clarifaiFace.right_col * width,
+        bottomRow: height - clarifaiFace.bottom_row * height,
+      };
+    });
   };
 
-  const faceBox = (box) => {
-    setBox(box);
+  const faceBoxes = (boxes) => {
+    setBoxes(boxes);
   };
 
   const handleInputChange = (e) => {
@@ -51,7 +51,7 @@ function App() {
       .then((generalModel) => {
         return generalModel.predict(input);
       })
-      .then((response) => faceBox(calculateFaceLocation(response)))
+      .then((response) => faceBoxes(calculateFaceLocation(response)))
       .catch((err) => console.log(err));
   };
 
@@ -64,7 +64,7 @@ function App() {
         onInputChange={handleInputChange}
         onDetectSubmit={handleSubmit}
       />
-      <FaceDetection image={imageUrl} box={box} />
+      <FaceDetection image={imageUrl} boxes={boxes} />
     </Fragment>
   );
 }

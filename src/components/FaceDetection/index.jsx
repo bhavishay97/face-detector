@@ -1,14 +1,7 @@
 import React from 'react';
 import './style.css';
 
-function FaceDetection({ image, box }) {
-  const boxStyles = {
-    top: box.topRow,
-    right: box.rightCol,
-    bottom: box.bottomRow,
-    left: box.leftCol,
-  };
-
+function FaceDetection({ image, boxes }) {
   return (
     <div className='container'>
       <div className='row my-5'>
@@ -21,7 +14,20 @@ function FaceDetection({ image, box }) {
                 id='input-image'
                 alt={image ? 'detection image/please enter correct URL' : ''}
               />
-              <div className='bounding-box' style={boxStyles}></div>
+              {boxes.map((box) => {
+                return (
+                  <div
+                    key={box.topRow}
+                    className='bounding-box'
+                    style={{
+                      top: box.topRow,
+                      right: box.rightCol,
+                      bottom: box.bottomRow,
+                      left: box.leftCol,
+                    }}
+                  ></div>
+                );
+              })}
             </div>
           </div>
         </div>
