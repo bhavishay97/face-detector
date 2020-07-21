@@ -6,7 +6,7 @@ function ImageLinkForm({ onInputChange, onDetectSubmit }) {
     <div className='container'>
       <div className='row mt-5'>
         <div className='col-md-8 offset-md-2'>
-          <form className='rounded shadow-lg'>
+          <form className='rounded shadow-lg img-link-form'>
             <div className='form-group height d-flex align-items-center m-0 px-4'>
               <input
                 type='text'
