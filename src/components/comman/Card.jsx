@@ -1,5 +1,4 @@
 import React from 'react';
-import Button from './Button';
 
 function Card({ title, children }) {
   return (
@@ -9,10 +8,7 @@ function Card({ title, children }) {
           <div className='card bg-transparent shadow-lg'>
             <div className='card-body'>
               <h5 className='card-title text-center'>{title}</h5>
-              <form>
-                {children}
-                <Button text={title} />
-              </form>
+              <form>{children}</form>
             </div>
           </div>
         </div>
