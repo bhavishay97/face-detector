@@ -11,7 +11,12 @@ export function loginWithJWT(jwt) {
   localStorage.setItem('token', jwt);
 }
 
+export function logout() {
+  localStorage.removeItem('token');
+}
+
 export default {
   login,
   loginWithJWT,
+  logout,
 };
