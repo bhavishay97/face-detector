@@ -1,9 +1,12 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import Navbar from '../Navbar';
 import ParticlesBackground from '../ParticlesBackground';
 import Card from '../comman/Card';
 import Input from '../comman/Input';
 import Button from '../comman/Button';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { errorToast } from '../comman/Toast';
 import { register } from '../../services/userService';
 import auth from '../../services/authService';
 
@@ -13,10 +16,13 @@ function Register(props) {
     email: '',
     password: '',
     error: '',
-    success: false,
   });
 
-  const { firstname, email, password } = values;
+  const { firstname, email, password, error } = values;
+
+  useEffect(() => {
+    if (error) errorToast(error);
+  }, [error]);
 
   const handleChange = (name) => (event) => {
     setValues({ ...values, error: false, [name]: event.target.value });
@@ -35,7 +41,6 @@ function Register(props) {
         email: '',
         password: '',
         error: '',
-        success: false,
       });
 
       props.history.push('/');
@@ -46,7 +51,6 @@ function Register(props) {
         setValues({
           ...values,
           error: data.errors,
-          success: false,
         });
       }
     }
@@ -56,6 +60,7 @@ function Register(props) {
     <Fragment>
       <Navbar />
       <ParticlesBackground />
+      <ToastContainer />
       <Card title='Register'>
         <Input
           name='text'

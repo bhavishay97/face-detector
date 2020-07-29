@@ -1,9 +1,12 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import Navbar from '../Navbar';
 import ParticlesBackground from '../ParticlesBackground';
 import Card from '../comman/Card';
 import Input from '../comman/Input';
 import Button from '../comman/Button';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { errorToast } from '../comman/Toast';
 import auth from '../../services/authService';
 
 function Login(props) {
@@ -11,10 +14,13 @@ function Login(props) {
     email: '',
     password: '',
     error: '',
-    loading: false,
   });
 
-  const { email, password } = values;
+  const { email, password, error } = values;
+
+  useEffect(() => {
+    if (error) errorToast(error);
+  }, [error]);
 
   const handleChange = (name) => (event) => {
     setValues({ ...values, error: false, [name]: event.target.value });
@@ -22,11 +28,12 @@ function Login(props) {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    setValues({ ...values, error: false, loading: true });
+    setValues({ ...values, error: false });
 
     try {
       const { data: jwt } = await auth.login({ email, password });
       auth.loginWithJWT(jwt);
+
       props.history.push('/');
     } catch (ex) {
       if (ex.response && ex.response.status === 400) {
@@ -35,7 +42,6 @@ function Login(props) {
         setValues({
           ...values,
           error: data.errors,
-          loading: false,
         });
       }
     }
@@ -45,6 +51,7 @@ function Login(props) {
     <Fragment>
       <Navbar />
       <ParticlesBackground />
+      <ToastContainer />
       <Card title='Log in'>
         <Input
           name='email'
