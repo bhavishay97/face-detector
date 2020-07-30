@@ -1,10 +1,11 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import Clarifai from 'clarifai';
 import ParticlesBackground from './components/ParticlesBackground';
 import Navbar from './components/Navbar';
 import Logo from './components/Logo';
 import ImageLinkForm from './components/ImageLinkForm';
 import FaceDetection from './components/FaceDetection';
+import auth from './services/authService';
 import './App.css';
 
 const app = new Clarifai.App({
@@ -15,6 +16,13 @@ function App() {
   const [input, setInput] = useState('');
   const [imageUrl, setImageUrl] = useState('');
   const [boxes, setBoxes] = useState([]);
+
+  const [user, setUser] = useState({});
+
+  useEffect(() => {
+    const user = auth.getCurrentUser();
+    setUser(user);
+  }, []);
 
   const calculateFaceLocation = (data) => {
     const image = document.querySelector('#input-image');
@@ -58,7 +66,7 @@ function App() {
   return (
     <Fragment>
       <ParticlesBackground />
-      <Navbar />
+      <Navbar user={user} />
       <Logo />
       <ImageLinkForm
         onInputChange={handleInputChange}

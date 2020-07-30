@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { NavLink, Link } from 'react-router-dom';
 
-function Navbar() {
+function Navbar({ user }) {
   return (
     <nav className='navbar navbar-expand-lg navbar-light'>
       <Link className='navbar-brand text-capitalize' to='/'>
@@ -20,15 +20,22 @@ function Navbar() {
       </button>
       <div className='collapse navbar-collapse'>
         <div className='navbar-nav'>
-          <NavLink className='nav-item nav-link ' to='/register'>
-            Register
-          </NavLink>
-          <NavLink className='nav-item nav-link ' to='/login'>
-            Log in
-          </NavLink>
-          <NavLink className='nav-item nav-link ' to='/logout'>
-            Log out
-          </NavLink>
+          {!user && (
+            <Fragment>
+              <NavLink className='nav-item nav-link ' to='/register'>
+                Register
+              </NavLink>
+              <NavLink className='nav-item nav-link ' to='/login'>
+                Log in
+              </NavLink>
+            </Fragment>
+          )}
+
+          {user && (
+            <NavLink className='nav-item nav-link ' to='/logout'>
+              Log out
+            </NavLink>
+          )}
         </div>
       </div>
     </nav>
