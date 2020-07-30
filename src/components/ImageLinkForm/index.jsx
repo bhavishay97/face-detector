@@ -4,7 +4,7 @@ import './style.css';
 function ImageLinkForm({ onInputChange, onDetectSubmit }) {
   return (
     <div className='container'>
-      <div className='row mt-5'>
+      <div className='row'>
         <div className='col-md-8 offset-md-2'>
           <form className='rounded shadow-lg img-link-form'>
             <div className='form-group height d-flex align-items-center m-0 px-4'>

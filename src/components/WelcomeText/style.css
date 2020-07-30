@@ -1,0 +1,13 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap');
+
+h1 {
+  font-family: 'Montserrat', sans-serif;
+}
+
+p {
+  font-size: 1.3rem;
+  font-family: 'Roboto Mono', monospace;
+  color: black;
+  font-weight: 500;
+}

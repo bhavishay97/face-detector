@@ -3,6 +3,7 @@ import Clarifai from 'clarifai';
 import ParticlesBackground from './components/ParticlesBackground';
 import Navbar from './components/Navbar';
 import Logo from './components/Logo';
+import WelcomeText from './components/WelcomeText';
 import ImageLinkForm from './components/ImageLinkForm';
 import FaceDetection from './components/FaceDetection';
 import auth from './services/authService';
@@ -68,6 +69,7 @@ function App() {
       <ParticlesBackground />
       <Navbar user={user} />
       <Logo />
+      <WelcomeText user={user} />
       <ImageLinkForm
         onInputChange={handleInputChange}
         onDetectSubmit={handleSubmit}
