@@ -1,5 +1,6 @@
 import React from 'react';
 import { Switch, Route, BrowserRouter as Router } from 'react-router-dom';
+import ProtectedRoute from './components/comman/ProtectedRoute';
 import Register from './components/User/Register';
 import Login from './components/User/Login';
 import Logout from './components/User/Logout';
@@ -12,7 +13,7 @@ function Routes() {
         <Route path='/register' component={Register} />
         <Route path='/login' component={Login} />
         <Route path='/logout' component={Logout} />
-        <Route path='/' component={App} />
+        <ProtectedRoute path='/' component={App} />
       </Switch>
     </Router>
   );
