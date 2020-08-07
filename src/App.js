@@ -6,7 +6,10 @@ import Logo from './components/Logo';
 import WelcomeText from './components/WelcomeText';
 import ImageLinkForm from './components/ImageLinkForm';
 import FaceDetection from './components/FaceDetection';
+import { ToastContainer } from 'react-toastify';
+import { errorToast } from './components/comman/Toast';
 import auth from './services/authService';
+import 'react-toastify/dist/ReactToastify.css';
 import './App.css';
 
 const app = new Clarifai.App({
@@ -25,6 +28,17 @@ function App() {
     setUser(user);
   }, []);
 
+  const checkFaces = (data) => {
+    Object.entries(data['outputs'][0]['data']).length === 0
+      ? noFaceFound()
+      : setBoxes(calculateFaceLocation(data));
+  };
+
+  const noFaceFound = () => {
+    setBoxes(null);
+    errorToast('No faces were found. Try again with a different image.');
+  };
+
   const calculateFaceLocation = (data) => {
     const image = document.querySelector('#input-image');
     const width = Number(image.width);
@@ -41,14 +55,6 @@ function App() {
     });
   };
 
-  const faceBoxes = (boxes) => {
-    setBoxes(boxes);
-  };
-
-  const handleInputChange = (e) => {
-    setInput(e.target.value);
-  };
-
   const handleSubmit = (e) => {
     e.preventDefault();
     setImageUrl(input);
@@ -60,18 +66,19 @@ function App() {
       .then((generalModel) => {
         return generalModel.predict(input);
       })
-      .then((response) => faceBoxes(calculateFaceLocation(response)))
+      .then((response) => checkFaces(response))
       .catch((err) => console.log(err));
   };
 
   return (
     <Fragment>
       <ParticlesBackground />
+      <ToastContainer />
       <Navbar user={user} />
       <Logo />
       <WelcomeText user={user} />
       <ImageLinkForm
-        onInputChange={handleInputChange}
+        onInputChange={(e) => setInput(e.target.value)}
         onDetectSubmit={handleSubmit}
       />
       <FaceDetection image={imageUrl} boxes={boxes} />

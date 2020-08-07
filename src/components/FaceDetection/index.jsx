@@ -14,20 +14,21 @@ function FaceDetection({ image, boxes }) {
                 id='input-image'
                 alt={image ? 'detection image/please enter correct URL' : ''}
               />
-              {boxes.map((box) => {
-                return (
-                  <div
-                    key={box.topRow}
-                    className='bounding-box'
-                    style={{
-                      top: box.topRow,
-                      right: box.rightCol,
-                      bottom: box.bottomRow,
-                      left: box.leftCol,
-                    }}
-                  ></div>
-                );
-              })}
+              {boxes &&
+                boxes.map((box) => {
+                  return (
+                    <div
+                      key={box.topRow}
+                      className='bounding-box'
+                      style={{
+                        top: box.topRow,
+                        right: box.rightCol,
+                        bottom: box.bottomRow,
+                        left: box.leftCol,
+                      }}
+                    ></div>
+                  );
+                })}
             </div>
           </div>
         </div>
