@@ -78,6 +78,7 @@ function App() {
       <Logo />
       <WelcomeText user={user} />
       <ImageLinkForm
+        input={input}
         onInputChange={(e) => setInput(e.target.value)}
         onDetectSubmit={handleSubmit}
       />

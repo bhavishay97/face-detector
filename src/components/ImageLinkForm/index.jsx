@@ -1,7 +1,7 @@
 import React from 'react';
 import './style.css';
 
-function ImageLinkForm({ onInputChange, onDetectSubmit }) {
+function ImageLinkForm({ input, onInputChange, onDetectSubmit }) {
   return (
     <div className='container'>
       <div className='row'>
@@ -16,6 +16,7 @@ function ImageLinkForm({ onInputChange, onDetectSubmit }) {
               />
               <button
                 className='btn btn-primary btn-lg'
+                disabled={input ? false : true}
                 onClick={onDetectSubmit}
               >
                 Detect
